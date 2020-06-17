@@ -31,7 +31,7 @@ def main(ip_range, interface):
 parser = argparse.ArgumentParser()
 parser.add_argument("--range", type=str, help="input ip range")
 parser.add_argument("--interface", type=str, help="interface to use for attack")
-
+parser.add_argument("-I", action="store_true", help="launch the script interactively")
 args = parser.parse_args()
 
 def launch(args):
