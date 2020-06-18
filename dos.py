@@ -6,6 +6,7 @@ def send_packet(target_ip, source_ip, source_port):
     TCP1 = TCP(srcport = source_port, dstport = 80)
     pkt = IP1 / TCP1
     send(pkt, inter = .001)
+
 def main(ip_range, interface):
     ip_adrr = ipscan(ip_range,interface)
     out = []
@@ -28,6 +29,10 @@ def main(ip_range, interface):
         for source_port in (1,65535):
             send_packet(y, source_ip,source_port)
 
+def interactive():
+    print("launching interactive mode")
+
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--range", type=str, help="input ip range")
 parser.add_argument("--interface", type=str, help="interface to use for attack")
@@ -35,12 +40,15 @@ parser.add_argument("-I", action="store_true", help="launch the script interacti
 args = parser.parse_args()
 
 def launch(args):
-    try:
-        ip_range = args.range
-        interface = args.interface
-        main(ip_range, interface)
-    except:
-        print("missing arguments ip range or interface use --help for more information")
+    if args.I:
+        interactive()
+    else:
+        try:
+            ip_range = args.range
+            interface = args.interface
+            main(ip_range, interface)
+        except:
+            print("missing arguments ip range or interface use --help for more information")
 
 if __name__ == "__main__":
     launch(args)
